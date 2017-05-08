@@ -60,3 +60,29 @@ register(
 		}
 	}
 );
+
+const slice = (arr, begin, end) => compact(arr.slice(begin, end));
+
+const push = (arr, ...elements) => compact([ ...arr, ...elements ]);
+
+const pop = (arr) => compact(slice(arr, 0, -1));
+
+const map = (arr, func) => compact(arr.map(func));
+
+const filter = (arr, func) => compact(arr.filter(func));
+
+const sort = (arr, func) => {
+	const sorted = [ ...arr ];
+	sorted.sort(func);
+	return compact(sorted);
+};
+
+
+base.array = {
+	push,
+	pop,
+	map,
+	filter,
+	sort,
+	slice,
+};

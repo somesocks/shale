@@ -2,8 +2,7 @@
 'use strict';
 
 const shale = require('../');
-
-const { type, compact, equals } = shale;
+const { type, compact, equals, array } = shale;
 
 const { AssertTest, PerformanceTest } = require('../testing');
 
@@ -88,7 +87,66 @@ const TESTS = [
 		],
 		expected: false,
 	},
+	{
+		label: `push test 1`,
+		call: array.push,
+		input: [
+			[ 1, 2, 3 ],
+			4
+		],
+		expected: [ 1, 2, 3, 4 ],
+	},
+	{
+		label: `push test 2`,
+		call: array.push,
+		input: [
+			[ 1, 2, 3 ],
+			4,
+			5,
+			6
+		],
+		expected: [ 1, 2, 3, 4, 5, 6 ],
+	},
+	{
+		label: `push test 3`,
+		call: array.push,
+		input: [
+			new Array(1000),
+			... new Array(1000),
+		],
+		expected: [ ...new Array(1000), ...new Array(1000) ],
+	},
+	{
+		label: `pop test 1`,
+		call: array.pop,
+		input: [ [ 1, 2, 3 ] ],
+		expected: [ 1, 2 ],
+	},
+	{
+		label: `pop test 2`,
+		call: array.pop,
+		input: [ [ 1 ] ],
+		expected: [ ],
+	},
+	{
+		label: `pop test 3`,
+		call: array.pop,
+		input: [ [ ] ],
+		expected: [ ],
+	},
+	{
+		label: `pop test 4`,
+		call: array.pop,
+		input: [ new Array(1000) ],
+		expected: [ ...new Array(999) ],
+	},
 
+	{
+		label: `map test 1`,
+		call: (arr) => array.map(arr, (v) => 2*v),
+		input: [ [ 1, 2, 3, 4 ] ],
+		expected: [ 2, 4, 6, 8 ],
+	},
 ];
 
 describe('array tests', () => {
