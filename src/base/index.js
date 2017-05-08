@@ -18,6 +18,9 @@ const compact = (val) => {
 }
 
 const equals = (val1, val2) => {
+	val1 = compact(val1);
+	val2 = compact(val2);
+
 	const type1 = type(val1);
 	const type2 = type(val2);
 

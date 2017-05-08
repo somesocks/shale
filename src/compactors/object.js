@@ -11,8 +11,9 @@ register(
 		type: 'object',
 		suid: (obj) => suid(compact(obj)),
 		compact: (obj) => {
-			let hash = 0;
 			let proxy = new ShaleObject();
+
+			proxy._suid = 0;
 
 			for (let key in obj) {
 				if (key !== '_suid' && obj.hasOwnProperty(key) && obj[key] !== undefined) {
@@ -20,17 +21,18 @@ register(
 
 					const childSuid = suid(val);
 
+
 					let childHash = init();
 					childHash = update(childHash, key);
-					childHash = update(childHash, childSuid);
+					childHash = (childHash ^ childSuid) >>> 0;
 					childHash = finish(childHash);
-					hash = hash ^ childHash;
+					proxy._suid = (proxy._suid ^ childHash) >>> 0;
 
 					proxy[key] = val;
 				}
 			}
 
-			proxy._suid = hash;
+			proxy._suid = finish(proxy._suid);
 			proxy = freeze(proxy);
 			return proxy;
 		},

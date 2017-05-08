@@ -4,24 +4,40 @@ const shale = require('../');
 
 const { compact, equals } = shale;
 
+const { AssertTest, PerformanceTest } = require('../testing');
+
+const TESTS = [
+	{
+		call: compact,
+		input: true,
+		expected: true,
+	},
+	{
+		call: compact,
+		input: false,
+		expected: false,
+	},
+	{
+		call: compact,
+		input: Boolean(true),
+		expected: true,
+	},
+	{
+		call: compact,
+		input: Boolean(false),
+		expected: false,
+	},
+];
+
 
 describe('boolean tests', () => {
 
-	const COMPACT_TESTS = [
-		{ input: true, expected: true },
-		{ input: false, expected: false },
-		{ input: Boolean(true), expected: true },
-		{ input: Boolean(false), expected: false },
-	];
+		describe('assertion tests', () => {
+			TESTS.forEach(AssertTest);
+		});
 
-
-	COMPACT_TESTS.forEach((test) => {
-		it(
-			`compact(${test.input})-->(${test.expected})`,
-			(done) => done(
-				compact(test.input) === test.expected ? null : new Error(`Failed! Expected ${test.expected}, got ${type(test.input)}`)
-			)
-		);
-	});
+		describe('performance tests', () => {
+			TESTS.forEach(PerformanceTest);
+		});
 
 });

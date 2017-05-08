@@ -97,7 +97,7 @@ const update = (state, string) => {
 const finish = (state) => {
 	state = ~state;
 	state = state < 0 ? 0xFFFFFFFF + state + 1 : state;
-	return state.toString(16);
+	return state;
 }
 
 const hash = (string) => {

@@ -2,31 +2,44 @@
 
 const { hash } = require('./hash');
 
+const { AssertTest, PerformanceTest } = require('../testing');
+
 const TESTS = [
-	{ label: 'empty string', input: ''},
-	{ label: 'short string', input: new Array(8 + 1).join('0') },
-	{ label: 'medium string', input: new Array(256 + 1).join('0') },
-	{ label: 'long string', input: new Array(65535 + 1).join('0') },
+	{
+		label: 'empty string',
+		call: hash,
+		input: '',
+		expected: hash(''),
+	},
+	{
+		label: 'short string',
+		call: hash,
+		input: new Array(8 + 1).join('0'),
+		expected: hash(new Array(8 + 1).join('0')),
+
+	},
+	{
+		label: 'medium string',
+		call: hash,
+		input: new Array(256 + 1).join('0'),
+		expected: hash(new Array(256 + 1).join('0')),
+	},
+	{
+		label: 'long string',
+		call: hash,
+		input: new Array(65536 + 1).join('0'),
+		expected: hash(new Array(65536 + 1).join('0')),
+	},
 ];
 
-describe('hash performance tests', () => {
-	TESTS.forEach((test) => {
-		it(
-			`(${test.label})`,
-			(done) => {
-				const { input, compare } = test;
+describe('hash tests', () => {
 
-				const start = Date.now();
-				let count = 0;
-
-				while(Date.now() - start < 100) {
-					hash(input);
-					count++;
-				}
-
-				console.log(`${count} iterations in ${1000}ms: ${1000/count} ms / iteration`);
-				done();
-			}
-		);
+	describe('assertion tests', () => {
+		TESTS.forEach(AssertTest);
 	});
+
+	describe('performance tests', () => {
+		TESTS.forEach(PerformanceTest);
+	});
+	
 });

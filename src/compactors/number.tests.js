@@ -4,21 +4,29 @@ const shale = require('../');
 
 const { compact, equals } = shale;
 
+const { AssertTest, PerformanceTest } = require('../testing');
+
+const TESTS = [
+	{
+		call: compact,
+		input: 0,
+		expected: 0,
+	},
+	{
+		call: compact,
+		input: Number(0),
+		expected: 0,
+	},
+];
 
 describe('number tests', () => {
 
-	const COMPACT_TESTS = [
-		{ input: 0, expected: 0 },
-		{ input: Number(0), expected: 0 },
-	];
+	describe('assertion tests', () => {
+		TESTS.forEach(AssertTest);
+	});
 
-	COMPACT_TESTS.forEach((test) => {
-		it(
-			`compact(${test.input})-->(${test.expected})`,
-			(done) => done(
-				compact(test.input) === test.expected ? null : new Error(`Failed! Expected ${test.expected}, got ${type(test.input)}`)
-			)
-		);
+	describe('performance tests', () => {
+		TESTS.forEach(PerformanceTest);
 	});
 
 });
