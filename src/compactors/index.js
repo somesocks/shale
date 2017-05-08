@@ -1,7 +1,10 @@
 
-require('./boolean');
-require('./null');
-require('./number');
-require('./object');
-require('./string');
 require('./undefined');
+require('./null');
+
+require('./boolean');
+require('./number');
+require('./string');
+
+require('./object');
+require('./array');

@@ -4,6 +4,7 @@ const isArray = Array.isArray ||
 
 const type = (thing) => {
 	const type = typeof thing;
+
 	switch (type) {
 		default:
 		case 'undefined':
@@ -16,12 +17,12 @@ const type = (thing) => {
 		case 'object':
 			if (thing === null) {
 				return 'null';
+			} else if (
+				(thing.__proto__ || this.prototype || thing.constructor) != null &&
+				(thing.__proto__ || this.prototype || thing.constructor).name != null) {
+				return (thing.__proto__ || this.prototype || thing.constructor).name.toLowerCase();
 			} else if (isArray(thing)) {
 				return 'array';
-			} else if (
-				(thing.constructor || this.prototype) != null &&
-				(thing.constructor || this.prototype).name != null) {
-				return (thing.constructor || thing.prototype).name.toLowerCase();
 			} else {
 				return 'object';
 			}
