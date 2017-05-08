@@ -1,4 +1,6 @@
 /* node-env mocha */
+'use strict';
+
 
 const shale = require('../');
 
@@ -32,7 +34,7 @@ describe('object tests', () => {
 			);
 		});
 
-		PERFORMANCE_TESTS = [
+		const PERFORMANCE_TESTS = [
 			{ count: Math.pow(4,1), input: build4tree(1) },
 			{ count: Math.pow(4,2), input: build4tree(2) },
 			{ count: Math.pow(4,3), input: build4tree(3) },
@@ -89,7 +91,7 @@ describe('object tests', () => {
 	});
 
 	describe('equals', () => {
-		EQUALS_TEST = [
+		const EQUALS_TEST = [
 			{
 				a: { a: 1, b: 2, c: 3 },
 				b: { a: 1, b: 2, c: 3 },
@@ -120,7 +122,7 @@ describe('object tests', () => {
 			);
 		});
 
-		PERFORMANCE_TESTS = [
+		const PERFORMANCE_TESTS = [
 			{ count: Math.pow(4,1), a: build4tree(1), b: build4tree(1),  },
 			{ count: Math.pow(4,2), a: build4tree(2), b: build4tree(2),  },
 			{ count: Math.pow(4,3), a: build4tree(3), b: build4tree(3),  },

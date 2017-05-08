@@ -61,6 +61,30 @@ register(
 
 const patch = (...args) => compact(Object.assign(...args));
 
+const filter = (obj, filter) => {
+	let temp = {};
+
+	for (var key in obj) {
+		if (obj.hasOwnProperty(key) && filter( obj[key], key, obj )) {
+			temp[key] = obj[key];
+		}
+	}
+	return compact(temp);
+};
+
+const map = (obj, map) => {
+	let temp = {};
+
+	for (var key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			temp[key] = map(obj[key], key, obj);
+		}
+	}
+	return compact(temp);
+};
+
 base.object = {
 	patch,
+	filter,
+	map,
 };

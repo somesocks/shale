@@ -17,10 +17,12 @@ const type = (thing) => {
 		case 'object':
 			if (thing === null) {
 				return 'null';
-			} else if (
-				(thing.__proto__ || this.prototype || thing.constructor) != null &&
-				(thing.__proto__ || this.prototype || thing.constructor).name != null) {
-				return (thing.__proto__ || this.prototype || thing.constructor).name.toLowerCase();
+			} else if (thing.__proto__ != null && thing.__proto__.name != null) {
+				return thing.__proto__.name.toLowerCase();
+			} else if (thing.prototype != null && thing.prototype.name != null) {
+				return thing.prototype.name.toLowerCase();
+			} else if (thing.constructor != null && thing.constructor.name != null) {
+				return thing.constructor.name.toLowerCase();
 			} else if (isArray(thing)) {
 				return 'array';
 			} else {
