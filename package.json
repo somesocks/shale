@@ -1,6 +1,6 @@
 {
   "name": "shale",
-  "version": "0.2.3",
+  "version": "0.1.0",
   "description": "A Javascript library for creating and manipulating immutable objects",
   "main": "dist/shale.js",
   "scripts": {},
