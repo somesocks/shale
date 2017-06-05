@@ -1,19 +1,17 @@
 const type = require('./type');
-const hash = require('./hash');
+const hasher = require('./hasher');
 
-const COMPACTORS = {};
+const BASE = {};
 
-const register = (compactor) => COMPACTORS[compactor.type] = compactor;
-
-const suid = (val) => {
+const hashcode = (val) => {
 	const _type = type(val);
-	const compactor = COMPACTORS[_type];
-	return compactor.suid(val);
+	const compactor = BASE[_type];
+	return compactor.hashcode(val);
 };
 
 const compact = (val) => {
 	const _type = type(val);
-	const compactor = COMPACTORS[_type];
+	const compactor = BASE[_type];
 	return compactor.compact(val);
 }
 
@@ -26,15 +24,14 @@ const equals = (val1, val2) => {
 
 	if (type1 !== type2) { return false; }
 
-	const compactor = COMPACTORS[type1];
+	const compactor = BASE[type1];
 	return compactor.equals(val1, val2);
 };
 
-module.exports = {
-	hash,
-	type,
-	register,
-	suid,
-	compact,
-	equals,
-};
+BASE.hasher = hasher;
+BASE.type = type;
+BASE.hashcode = hashcode;
+BASE.compact = compact;
+BASE.equals = equals;
+
+module.exports = BASE;

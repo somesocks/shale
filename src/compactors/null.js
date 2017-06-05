@@ -1,10 +1,10 @@
-const { compact, suid, equals, register } = require('../base');
+const shale = require('../base');
+const { compact, equals } = shale;
 
-register(
-	{
-		type: 'null',
-		suid: (val) => 0xb352a39b,
-		compact: (val) => null,
-		equals: (val1, val2) => val1 === val2,
-	}
-);
+shale.null = {};
+
+shale.null.hashcode = (val) => 0xb352a39b;
+
+shale.null.compact = (val) => null;
+
+shale.null.equals = (val1, val2) => val1 === val2;

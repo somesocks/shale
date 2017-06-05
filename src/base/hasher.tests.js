@@ -1,10 +1,22 @@
 /* node-env mocha */
 
-const { hash } = require('./hash');
+const { hash } = require('./hasher');
 
 const { AssertTest, PerformanceTest } = require('../testing');
 
 const TESTS = [
+	{
+		label: 'bool',
+		call: hash,
+		input: true,
+		expected: hash(true),
+	},
+	{
+		label: 'int',
+		call: hash,
+		input: 0xFFFFFFFF,
+		expected: hash(0xFFFFFFFF),
+	},
 	{
 		label: 'empty string',
 		call: hash,
@@ -41,5 +53,5 @@ describe('hash tests', () => {
 	describe('performance tests', () => {
 		TESTS.forEach(PerformanceTest);
 	});
-	
+
 });

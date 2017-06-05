@@ -1,69 +1,71 @@
-const base = require('../base');
-const { compact, suid, equals, register, hash } = base;
-const { init, update, finish } = hash;
+const shale = require('../base');
+const { compact, hashcode, equals, hasher } = shale;
+const { init, update, finish } = hasher;
 
 const freeze = Object.freeze;
 
 class ShaleObject extends Object { }
 
-register(
-	{
-		type: 'object',
-		suid: (obj) => suid(compact(obj)),
-		compact: (obj) => {
-			let proxy = new ShaleObject();
 
-			proxy._suid = 0;
+shale.shaleobject = {};
 
-			for (let key in obj) {
-				if (key !== '_suid' && obj.hasOwnProperty(key) && obj[key] !== undefined) {
-					const val = compact(obj[key]);
+shale.shaleobject.hashcode = (obj) => obj._hashcode;
 
-					const childSuid = suid(val);
+shale.shaleobject.compact = (obj) => obj;
 
+shale.shaleobject.equals = (obj1, obj2) => {
+	if (obj1._hashcode !== obj2._hashcode) { return false; }
 
-					let childHash = init();
-					childHash = update(childHash, key);
-					childHash = (childHash ^ childSuid) >>> 0;
-					childHash = finish(childHash);
-					proxy._suid = (proxy._suid ^ childHash) >>> 0;
-
-					proxy[key] = val;
-				}
-			}
-
-			proxy._suid = finish(proxy._suid);
-			proxy = freeze(proxy);
-			return proxy;
-		},
-		equals: (obj1, obj2) => equals(compact(obj1), compact(obj2)),
+	for (let key in obj1) {
+		if (!equals(obj1[key], obj2[key])) { return false; }
 	}
-);
 
-register(
-	{
-		type: 'shaleobject',
-		suid: (obj) => obj._suid,
-		compact: (obj) => obj,
-		equals: (obj1, obj2) => {
-			if (obj1._suid !== obj2._suid) { return false; }
+	for (let key in obj2) {
+		if (!equals(obj1[key], obj2[key])) { return false; }
+	}
 
-			for (let key in obj1) {
-				if (!equals(obj1[key], obj2[key])) { return false; }
-			}
+	return true;
+};
 
-			for (let key in obj2) {
-				if (!equals(obj1[key], obj2[key])) { return false; }
-			}
 
-			return true;
+shale.object = {};
+
+shale.object.hashcode = (obj) => hashcode(compact(obj));
+
+shale.object.compact = (obj) => {
+	let proxy = new ShaleObject();
+
+	proxy._hashcode = 0;
+
+	for (let key in obj) {
+		if (key !== '_hashcode' && obj.hasOwnProperty(key) && obj[key] !== undefined) {
+			const val = compact(obj[key]);
+
+			let childHash = init();
+			childHash = update(childHash, key);
+			childHash = update(childHash, hashcode(val));
+			childHash = finish(childHash);
+
+			proxy._hashcode = (proxy._hashcode ^ childHash) >>> 0;
+
+			proxy[key] = val;
 		}
 	}
-);
 
-const patch = (...args) => compact(Object.assign(...args));
+	proxy._hashcode = finish(proxy._hashcode);
+	proxy = freeze(proxy);
+	return proxy;
+};
 
-const filter = (obj, filter) => {
+shale.object.equals = (ob1, ob2) => equals(compact(obj1), compact(obj2));
+
+shale.object.patch = (target, ...sources) => compact(Object.assign(
+	{},
+	target,
+	...sources
+));
+
+shale.object.filter = (obj, filter) => {
 	let temp = {};
 
 	for (var key in obj) {
@@ -74,7 +76,7 @@ const filter = (obj, filter) => {
 	return compact(temp);
 };
 
-const map = (obj, map) => {
+shale.object.map = (obj, map) => {
 	let temp = {};
 
 	for (var key in obj) {
@@ -83,10 +85,4 @@ const map = (obj, map) => {
 		}
 	}
 	return compact(temp);
-};
-
-base.object = {
-	patch,
-	filter,
-	map,
 };

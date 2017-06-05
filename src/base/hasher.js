@@ -68,30 +68,140 @@ const TABLE  = [
 
 const init = (state) => 0xFFFFFFFF;
 
-const update_byte = (state, byte) =>
-	(state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+const update_bool = (state, bool) => {
+	const byte = bool ? 0x01: 0x00;
 
-const update = (state, string) => {
+	state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+	return state;
+}
+
+const update_int = (state, int) => {
+	let byte;
+
+	byte = int & 0xFF;
+	state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+	byte = (int >>> 8) & 0xFF;
+	state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+	byte = (int >>> 16) & 0xFF;
+	state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+	byte = (int >>> 24) & 0xFF;
+	state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+	return state;
+}
+
+const update_string = (state, string) => {
 	for (let i=0; i < string.length; i++) {
 		const ch = string.charCodeAt(i);
+		let byte;
 
 		if (ch < 0x80) {
-			state = update_byte(state, ch);
+			byte = ch;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
 		} else if (ch < 0x800) {
-			state = update_byte(state, 0xc0 | (ch >> 6));
-			state = update_byte(state, 0x80 | (ch & 0x3f));
+			byte = 0xc0 | (ch >> 6);
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = 0x80 | (ch & 0x3f);
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
 		} else if (ch < 0xd800 || ch >= 0xe000) {
-			state = update_byte(state, 0xe0 | (ch >> 12));
-			state = update_byte(state, 0x80 | ((ch >> 6) & 0x3f));
-			state = update_byte(state, 0x80 | (ch & 0x3f));
+			byte = 0xe0 | (ch >> 12);
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = 0x80 | ((ch >> 6) & 0x3f);
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = 0x80 | (ch & 0x3f);
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
 		} else {
-			state = update_byte(state, 0xef);
-			state = update_byte(state, 0xbf);
-			state = update_byte(state, 0xbd);
+			byte = 0xef;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = 0xbf;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = 0xbd;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
 		}
 	}
 
 	return state;
+};
+
+const update = (state, val) => {
+	const type = typeof val;
+
+	switch(type) {
+		default:
+		case 'symbol':
+		case 'function':
+		case 'undefined':
+		case 'object':
+			throw new Error(`can't convert ${val} to bytes`);
+		case 'boolean': {
+			const byte = val ? 0x01: 0x00;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+			return state;
+		}
+		case 'number': {
+			let byte;
+
+			byte = val & 0xFF;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = (val >>> 8) & 0xFF;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = (val >>> 16) & 0xFF;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			byte = (val >>> 24) & 0xFF;
+			state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+			return state;
+		}
+		case 'string': {
+			for (let i=0; i < val.length; i++) {
+				const ch = val.charCodeAt(i);
+				let byte;
+
+				if (ch < 0x80) {
+					byte = ch;
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+				} else if (ch < 0x800) {
+					byte = 0xc0 | (ch >> 6);
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+					byte = 0x80 | (ch & 0x3f);
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+				} else if (ch < 0xd800 || ch >= 0xe000) {
+					byte = 0xe0 | (ch >> 12);
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+					byte = 0x80 | ((ch >> 6) & 0x3f);
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+					byte = 0x80 | (ch & 0x3f);
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+				} else {
+					byte = 0xef;
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+					byte = 0xbf;
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+
+					byte = 0xbd;
+					state = (state >>> 8) ^ TABLE[byte ^ (state & 0x000000FF)];
+				}
+			}
+
+			return state;
+		}
+	}
 };
 
 const finish = (state) => {
@@ -100,10 +210,10 @@ const finish = (state) => {
 	return state;
 }
 
-const hash = (string) => {
+const hash = (val) => {
 	let state;
 	state = init(state);
-	state = update(state, string);
+	state = update(state, val);
 	state = finish(state);
 	return state;
 };

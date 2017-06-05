@@ -1,6 +1,6 @@
-const base = require('../base');
-const { compact, suid, equals, register, hash } = base;
-const { init, update, finish } = hash;
+const shale = require('../base');
+const { compact, hashcode, equals, hasher } = shale;
+const { init, update, finish } = hasher;
 
 const freeze = Object.freeze;
 
@@ -13,76 +13,65 @@ const ShaleArray = function (...args) {
 ShaleArray.prototype = Object.create(Array.prototype);
 ShaleArray.prototype.name = 'ShaleArray';
 
-register(
-	{
-		type: 'array',
-		suid: (arr) => suid(compact(arr)),
-		compact: (arr) => {
-			let hash = 0;
-			let proxy = new ShaleArray();
 
-			for (let i = 0; i < arr.length; i++) {
-				const val = compact(arr[i]);
 
-				const childSuid = suid(val);
+shale.shalearray = {};
 
-				let childHash = init();
-				childHash = update(childHash, `${i}`);
-				childHash = update(childHash, childSuid);
-				childHash = finish(childHash);
-				hash = hash ^ childHash;
+shale.shalearray.hashcode = (arr) => arr._hashcode;
 
-				proxy[i] = val;
-			}
+shale.shalearray.compact = (arr) => arr;
 
-			proxy._suid = hash;
-			proxy = freeze(proxy);
-			return proxy;
-		},
-		equals: (arr1, arr2) => equals(compact(arr1), compact(arr2)),
+shale.shalearray.equals = (arr1, arr2) => {
+	if (arr1._hashcode !== arr2._hashcode) { return false; }
+	if (arr1.length !== arr2.length) { return false; }
+
+	for (let i = 0; i < arr1.length; i++ ) {
+		if (!equals(arr1[i], arr2[i])) { return false; }
 	}
-);
 
-register(
-	{
-		type: 'shalearray',
-		suid: (arr) => arr._suid,
-		compact: (arr) => arr,
-		equals: (arr1, arr2) => {
-			if (arr1._suid !== arr2._suid) { return false; }
-			if (arr1.length !== arr2.length) { return false; }
+	return true;
+};
 
-			for (let i = 0; i < arr1.length; i++ ) {
-				if (!equals(arr1[i], arr2[i])) { return false; }
-			}
 
-			return true;
-		}
+
+shale.array = {};
+
+shale.array.hashcode = (arr) => hashcode(compact(arr));
+
+shale.array.compact = (arr) => {
+	let hash = 0;
+	let proxy = new ShaleArray();
+
+	for (let i = 0; i < arr.length; i++) {
+		const val = compact(arr[i]);
+
+		hash = update(hash, i);
+		hash = update(hash, hashcode(val));
+
+		proxy[i] = val;
 	}
-);
 
-const slice = (arr, begin, end) => compact(arr.slice(begin, end));
+	hash = finish(hash);
 
-const push = (arr, ...elements) => compact([ ...arr, ...elements ]);
+	proxy._hashcode = hash;
+	proxy = freeze(proxy);
+	return proxy;
+};
 
-const pop = (arr) => compact(slice(arr, 0, -1));
+shale.array.equals = (arr1, arr2) => equals(compact(arr1), compact(arr2));
 
-const map = (arr, func) => compact(arr.map(func));
+shale.array.slice = (arr, begin, end) => compact(arr.slice(begin, end));
 
-const filter = (arr, func) => compact(arr.filter(func));
+shale.array.push = (arr, ...elements) => compact([ ...arr, ...elements ]);
 
-const sort = (arr, func) => {
+shale.array.pop = (arr) => compact(arr.slice(0, -1));
+
+shale.array.map = (arr, func) => compact(arr.map(func));
+
+shale.array.filter = (arr, func) => compact(arr.filter(func));
+
+shale.array.sort = (arr, func) => {
 	const sorted = [ ...arr ];
 	sorted.sort(func);
 	return compact(sorted);
-};
-
-
-base.array = {
-	push,
-	pop,
-	map,
-	filter,
-	sort,
-	slice,
-};
+}

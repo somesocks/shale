@@ -18,9 +18,11 @@ const PerformanceTest = (test) => {
 			const output = isArray(input) ? call(...input) : call(input);
 			count++;
 		}
+		const end = Date.now();
+		const time = end - start;
 
 		done();
-		console.log(`\t performance: ${count} iterations in ${RUN_TIME}ms, ${(RUN_TIME/count).toFixed(4)} ms/iteration`);
+		console.log(`\t performance: ${count} iterations in ${time}ms, ${(time/count).toFixed(4)} ms/iteration`);
 	});
 };
 
