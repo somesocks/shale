@@ -16,6 +16,7 @@ const AssertTest = (test) => {
 			null
 			: new Error(`assert failed! output ${JSON.stringify(output)} expected ${JSON.stringify(expected)}`);
 		done(result);
+		console.log('');
 	});
 };
 

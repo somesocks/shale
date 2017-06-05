@@ -22,7 +22,7 @@ const PerformanceTest = (test) => {
 		const time = end - start;
 
 		done();
-		console.log(`\t performance: ${count} iterations in ${time}ms, ${(time/count).toFixed(4)} ms/iteration`);
+		console.log(`\t performance: ${count} iterations in ${time}ms, ${(time/count).toFixed(4)} ms/iteration\n`);
 	});
 };
 
