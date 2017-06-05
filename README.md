@@ -1,782 +1,586 @@
-# vet
-A 10kB Javascript library for data validation.
+# shale
+A Javascript library for creating and manipulating immutable objects
 
-<a name="Vet"></a>
+<a name="shale"></a>
 
-## Vet : <code>object</code>
+## shale : <code>object</code>
 **Kind**: global namespace  
 
-* [Vet](#Vet) : <code>object</code>
-    * [.isArray](#Vet.isArray)
-    * [.isBoolean](#Vet.isBoolean)
-    * [.isFunction](#Vet.isFunction)
-    * [.isNumber](#Vet.isNumber)
-    * [.isObject](#Vet.isObject)
-    * [.isString](#Vet.isString)
-    * [.assert](#Vet.assert)
-    * [.array](#Vet.array)
-    * [.boolean](#Vet.boolean)
-    * [.function](#Vet.function)
-    * [.number](#Vet.number)
-    * [.object](#Vet.object)
-    * [.string](#Vet.string)
-    * [.utils](#Vet.utils)
-    * [.Array](#Vet.Array) : <code>object</code>
-        * [.isArray](#Vet.Array.isArray) ⇒
-        * [.isArrayOf(val)](#Vet.Array.isArrayOf) ⇒
-        * [.isLength(len)](#Vet.Array.isLength) ⇒
-    * [.Boolean](#Vet.Boolean) : <code>object</code>
-        * [.isBoolean(val)](#Vet.Boolean.isBoolean) ⇒
-        * [.isFalse(val)](#Vet.Boolean.isFalse) ⇒
-        * [.isFalsy(val)](#Vet.Boolean.isFalsy) ⇒
-        * [.isTrue(val)](#Vet.Boolean.isTrue) ⇒
-        * [.isTruthy(val)](#Vet.Boolean.isTruthy) ⇒
-    * [.Function](#Vet.Function) : <code>object</code>
-        * [.isFunction(val)](#Vet.Function.isFunction) ⇒
-    * [.Number](#Vet.Number) : <code>object</code>
-        * [.isInteger](#Vet.Number.isInteger) ⇒
-        * [.isNegative(val)](#Vet.Number.isNegative) ⇒
-        * [.isNonZero(val)](#Vet.Number.isNonZero) ⇒
-        * [.isNumber(val)](#Vet.Number.isNumber) ⇒
-        * [.isPositive(val)](#Vet.Number.isPositive) ⇒
-        * [.isZero(val)](#Vet.Number.isZero) ⇒
-    * [.Object](#Vet.Object) : <code>object</code>
-        * [.isObject(val)](#Vet.Object.isObject) ⇒
-        * [.matchesExact(schema)](#Vet.Object.matchesExact) ⇒
-        * [.matches(schema)](#Vet.Object.matches) ⇒
-    * [.String](#Vet.String) : <code>object</code>
-        * [.isEmpty(val)](#Vet.String.isEmpty) ⇒
-        * [.isLength(len)](#Vet.String.isLength) ⇒
-        * [.isNotEmpty(val)](#Vet.String.isNotEmpty) ⇒
-        * [.isProbablyBase64(val)](#Vet.String.isProbablyBase64) ⇒
-        * [.isProbablyDataURL(val)](#Vet.String.isProbablyDataURL) ⇒
-        * [.isProbablyEmail(val)](#Vet.String.isProbablyEmail) ⇒
-        * [.isProbablyURL(val)](#Vet.String.isProbablyURL) ⇒
-        * [.isString(val)](#Vet.String.isString) ⇒
-        * [.matches(regex)](#Vet.String.matches) ⇒
-    * [.Utils](#Vet.Utils) : <code>object</code>
-        * [.accepts(func, validator, message)](#Vet.Utils.accepts) ⇒
-        * [.assert(validator, message)](#Vet.Utils.assert) ⇒
-        * [.returns(func, validator, message)](#Vet.Utils.returns) ⇒
-    * [.equals(eq)](#Vet.equals) ⇒
-    * [.exists(val)](#Vet.exists) ⇒
-    * [.isOneOf(...eq)](#Vet.isOneOf) ⇒
-    * [.isNotNull(val)](#Vet.isNotNull) ⇒
-    * [.isNotNullOrUndefined(val)](#Vet.isNotNullOrUndefined) ⇒
-    * [.isNotUndefined(val)](#Vet.isNotUndefined) ⇒
-    * [.isNull(val)](#Vet.isNull) ⇒
-    * [.isNullOrUndefined(val)](#Vet.isNullOrUndefined) ⇒
-    * [.isOneOf(...eq)](#Vet.isOneOf) ⇒
-    * [.isUndefined(val)](#Vet.isUndefined) ⇒
-    * [.matchesAllOf(...validators)](#Vet.matchesAllOf) ⇒
-    * [.matchesNoneOf(...validators)](#Vet.matchesNoneOf) ⇒
-    * [.matchesOneOf(...validators)](#Vet.matchesOneOf) ⇒
-    * [.optional(validator)](#Vet.optional) ⇒
+* [shale](#shale) : <code>object</code>
+    * [.array](#shale.array) : <code>object</code>
+        * [.hashcode(arr)](#shale.array.hashcode) ⇒
+        * [.compact(arr)](#shale.array.compact) ⇒
+        * [.equals(arr1, arr2)](#shale.array.equals) ⇒
+        * [.slice(arr, begin, end)](#shale.array.slice) ⇒
+        * [.push(arr, end)](#shale.array.push) ⇒
+        * [.pop(arr)](#shale.array.pop) ⇒
+        * [.map(arr, func)](#shale.array.map) ⇒
+        * [.filter(arr, func)](#shale.array.filter) ⇒
+        * [.sort(arr, func)](#shale.array.sort) ⇒
+    * [.boolean](#shale.boolean) : <code>object</code>
+        * [.hashcode(val)](#shale.boolean.hashcode) ⇒
+        * [.compact(val)](#shale.boolean.compact) ⇒
+        * [.equals(val1, val2)](#shale.boolean.equals) ⇒
+    * [.null](#shale.null) : <code>object</code>
+        * [.hashcode(val)](#shale.null.hashcode) ⇒
+        * [.compact(val)](#shale.null.compact) ⇒
+        * [.equals(val1, val2)](#shale.null.equals) ⇒
+    * [.number](#shale.number) : <code>object</code>
+        * [.hashcode(val)](#shale.number.hashcode) ⇒
+        * [.compact(val)](#shale.number.compact) ⇒
+        * [.equals(val1, val2)](#shale.number.equals) ⇒
+    * [.object](#shale.object) : <code>object</code>
+        * [.hashcode(val)](#shale.object.hashcode) ⇒
+        * [.compact(val)](#shale.object.compact) ⇒
+        * [.equals(val1, val2)](#shale.object.equals) ⇒
+        * [.patch(target)](#shale.object.patch) ⇒
+        * [.filter(obj, filter)](#shale.object.filter) ⇒
+        * [.map(obj, ma)](#shale.object.map) ⇒
+    * [.string](#shale.string) : <code>object</code>
+        * [.hashcode(val)](#shale.string.hashcode) ⇒
+        * [.compact(val)](#shale.string.compact) ⇒
+        * [.equals(val1, val2)](#shale.string.equals) ⇒
+    * [.undefined](#shale.undefined) : <code>object</code>
+        * [.hashcode(val)](#shale.undefined.hashcode) ⇒
+        * [.compact(val)](#shale.undefined.compact) ⇒
+        * [.equals(val1, val2)](#shale.undefined.equals) ⇒
+    * [.type](#shale.type) ⇒
+    * [.hashcode(val)](#shale.hashcode) ⇒
+    * [.compact(val)](#shale.compact) ⇒
+    * [.equals(val1, val2)](#shale.equals) ⇒
 
-<a name="Vet.isArray"></a>
+<a name="shale.array"></a>
 
-### Vet.isArray
-alias for Vet.Array.isArray
+### shale.array : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.isBoolean"></a>
+* [.array](#shale.array) : <code>object</code>
+    * [.hashcode(arr)](#shale.array.hashcode) ⇒
+    * [.compact(arr)](#shale.array.compact) ⇒
+    * [.equals(arr1, arr2)](#shale.array.equals) ⇒
+    * [.slice(arr, begin, end)](#shale.array.slice) ⇒
+    * [.push(arr, end)](#shale.array.push) ⇒
+    * [.pop(arr)](#shale.array.pop) ⇒
+    * [.map(arr, func)](#shale.array.map) ⇒
+    * [.filter(arr, func)](#shale.array.filter) ⇒
+    * [.sort(arr, func)](#shale.array.sort) ⇒
 
-### Vet.isBoolean
-alias for Vet.Boolean.isBoolean
+<a name="shale.array.hashcode"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.isFunction"></a>
+#### array.hashcode(arr) ⇒
+A function that returns a hashcode for an array.
+You should never need to call this directly, just call shale.hashcode
 
-### Vet.isFunction
-alias for Vet.Function.isFunction
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an hashcode for arr  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.isNumber"></a>
+| Param | Description |
+| --- | --- |
+| arr | the array to hash |
 
-### Vet.isNumber
-alias for Vet.Number.isNumber
+<a name="shale.array.compact"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.isObject"></a>
+#### array.compact(arr) ⇒
+A function that compacts an array into an immutable representation.
+You should never need to call this directly, just call shale.compact
 
-### Vet.isObject
-alias for Vet.Object.isObject
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable representation of arr  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.isString"></a>
+| Param | Description |
+| --- | --- |
+| arr | the array to compact |
 
-### Vet.isString
-alias for Vet.String.isString
+<a name="shale.array.equals"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.assert"></a>
+#### array.equals(arr1, arr2) ⇒
+A function that compares two arrays for deep equality.
+You should never call this directly, use shale.equals
 
-### Vet.assert
-alias for Vet.Utils.assert
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: true if arr1 is equal to arr2, false otherwise  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.array"></a>
+| Param | Description |
+| --- | --- |
+| arr1 | an array to compare |
+| arr2 | an array to compare |
 
-### Vet.array
-alias for Vet.Array
+<a name="shale.array.slice"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.boolean"></a>
+#### array.slice(arr, begin, end) ⇒
+A function that slices an array or an immutable array.
+This doesn't modify the source array.
 
-### Vet.boolean
-alias for Vet.Boolean
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable slice of val  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.function"></a>
+| Param | Description |
+| --- | --- |
+| arr | the array or immutable array to slice |
+| begin | the beginning index |
+| end | the ending index |
 
-### Vet.function
-alias for Vet.Function
+<a name="shale.array.push"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.number"></a>
+#### array.push(arr, end) ⇒
+A function that pushes any number of elements onto an array or an immutable array.
+This doesn't modify the source array.
 
-### Vet.number
-alias for Vet.Number
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable array equivalent to [ ...arr, ...elements ]  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.object"></a>
+| Param | Description |
+| --- | --- |
+| arr | the array or immutable array to 'push' onto |
+| ...elements | any number of elements to push onto the end of the arr |
+| end | the ending index |
 
-### Vet.object
-alias for Vet.Object
+<a name="shale.array.pop"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.string"></a>
+#### array.pop(arr) ⇒
+A function that 'pops' one element off the source array.
+This doesn't modify the source array, it returns an immutable copy of the array, minus the last element.
 
-### Vet.string
-alias for Vet.String
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable array that is a copy of arr, with the last element removed  
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.utils"></a>
+| Param | Description |
+| --- | --- |
+| arr | the array or immutable array to 'pop' |
 
-### Vet.utils
-alias for Vet.Utils
+<a name="shale.array.map"></a>
 
-**Kind**: static property of <code>[Vet](#Vet)</code>  
-<a name="Vet.Array"></a>
+#### array.map(arr, func) ⇒
+A function that maps every element of an array to a new array using a mapping function.
+This is equivalent to array.map, but the returned array is immutable
 
-### Vet.Array : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable array that is a mapped copy of the original  
 
-* [.Array](#Vet.Array) : <code>object</code>
-    * [.isArray](#Vet.Array.isArray) ⇒
-    * [.isArrayOf(val)](#Vet.Array.isArrayOf) ⇒
-    * [.isLength(len)](#Vet.Array.isLength) ⇒
+| Param | Description |
+| --- | --- |
+| arr | the array to map |
+| func | the mapping function |
 
-<a name="Vet.Array.isArray"></a>
+<a name="shale.array.filter"></a>
 
-#### Array.isArray ⇒
-Checks to see if a value is an array
+#### array.filter(arr, func) ⇒
+A function that filters elements from an array using a filter function.
+This is equivalent to array.filter, but the returned array is immutable
 
-**Kind**: static constant of <code>[Array](#Vet.Array)</code>  
-**Returns**: true if the value is an array  
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable array that is a filter copy of the original  
+
+| Param | Description |
+| --- | --- |
+| arr | the array to filter |
+| func | the filter function |
+
+<a name="shale.array.sort"></a>
+
+#### array.sort(arr, func) ⇒
+A function that sorts an array or an immutable array.
+This doesn't modify the original array, but returns an immutable sorted copy.
+
+**Kind**: static method of <code>[array](#shale.array)</code>  
+**Returns**: an immutable array that is a sorted immutable copy of the original  
+
+| Param | Description |
+| --- | --- |
+| arr | the array to filter |
+| func | the sorting function |
+
+<a name="shale.boolean"></a>
+
+### shale.boolean : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
+
+* [.boolean](#shale.boolean) : <code>object</code>
+    * [.hashcode(val)](#shale.boolean.hashcode) ⇒
+    * [.compact(val)](#shale.boolean.compact) ⇒
+    * [.equals(val1, val2)](#shale.boolean.equals) ⇒
+
+<a name="shale.boolean.hashcode"></a>
+
+#### boolean.hashcode(val) ⇒
+A function that returns a hashcode for a boolean.
+You should never need to call this directly, just call shale.hashcode
+
+**Kind**: static method of <code>[boolean](#shale.boolean)</code>  
+**Returns**: an hashcode for val  
+
+| Param | Description |
+| --- | --- |
+| val | the boolean to hash |
+
+<a name="shale.boolean.compact"></a>
+
+#### boolean.compact(val) ⇒
+A function that compacts a boolean into an immutable representation.
+You should never need to call this directly, just call shale.compact
+
+**Kind**: static method of <code>[boolean](#shale.boolean)</code>  
+**Returns**: an immutable representation of val  
+
+| Param | Description |
+| --- | --- |
+| val | the boolean to compact |
+
+<a name="shale.boolean.equals"></a>
+
+#### boolean.equals(val1, val2) ⇒
+A function that compares two booleans for equality.
+You should never call this directly, use shale.equals
+
+**Kind**: static method of <code>[boolean](#shale.boolean)</code>  
+**Returns**: true if val1 is equal to val2, false otherwise  
+
+| Param | Description |
+| --- | --- |
+| val1 | a boolean to compare |
+| val2 | a boolean to compare |
+
+<a name="shale.null"></a>
+
+### shale.null : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
+
+* [.null](#shale.null) : <code>object</code>
+    * [.hashcode(val)](#shale.null.hashcode) ⇒
+    * [.compact(val)](#shale.null.compact) ⇒
+    * [.equals(val1, val2)](#shale.null.equals) ⇒
+
+<a name="shale.null.hashcode"></a>
+
+#### null.hashcode(val) ⇒
+A function that returns a hashcode for a null.
+You should never need to call this directly, just call shale.hashcode
+
+**Kind**: static method of <code>[null](#shale.null)</code>  
+**Returns**: an hashcode for val  
+
+| Param | Description |
+| --- | --- |
+| val | the null to hash |
+
+<a name="shale.null.compact"></a>
+
+#### null.compact(val) ⇒
+A function that compacts a null into an immutable representation.
+You should never need to call this directly, just call shale.compact
+
+**Kind**: static method of <code>[null](#shale.null)</code>  
+**Returns**: an immutable representation of val  
+
+| Param | Description |
+| --- | --- |
+| val | the null to compact |
+
+<a name="shale.null.equals"></a>
+
+#### null.equals(val1, val2) ⇒
+A function that compares two nulls for equality.
+You should never call this directly, use shale.equals
+
+**Kind**: static method of <code>[null](#shale.null)</code>  
+**Returns**: true if val1 is equal to val2, false otherwise  
+
+| Param | Description |
+| --- | --- |
+| val1 | a null to compare |
+| val2 | a null to compare |
+
+<a name="shale.number"></a>
+
+### shale.number : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
+
+* [.number](#shale.number) : <code>object</code>
+    * [.hashcode(val)](#shale.number.hashcode) ⇒
+    * [.compact(val)](#shale.number.compact) ⇒
+    * [.equals(val1, val2)](#shale.number.equals) ⇒
+
+<a name="shale.number.hashcode"></a>
+
+#### number.hashcode(val) ⇒
+A function that returns a hashcode for a number.
+You should never need to call this directly, just call shale.hashcode
+
+**Kind**: static method of <code>[number](#shale.number)</code>  
+**Returns**: an hashcode for val  
+
+| Param | Description |
+| --- | --- |
+| val | the number to hash |
+
+<a name="shale.number.compact"></a>
+
+#### number.compact(val) ⇒
+A function that compacts a number into an immutable representation.
+You should never need to call this directly, just call shale.compact
+
+**Kind**: static method of <code>[number](#shale.number)</code>  
+**Returns**: an immutable representation of val  
+
+| Param | Description |
+| --- | --- |
+| val | the number to compact |
+
+<a name="shale.number.equals"></a>
+
+#### number.equals(val1, val2) ⇒
+A function that compares two numbers for equality.
+You should never call this directly, use shale.equals
+
+**Kind**: static method of <code>[number](#shale.number)</code>  
+**Returns**: true if val1 is equal to val2, false otherwise  
+
+| Param | Description |
+| --- | --- |
+| val1 | a number to compare |
+| val2 | a number to compare |
+
+<a name="shale.object"></a>
+
+### shale.object : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
+
+* [.object](#shale.object) : <code>object</code>
+    * [.hashcode(val)](#shale.object.hashcode) ⇒
+    * [.compact(val)](#shale.object.compact) ⇒
+    * [.equals(val1, val2)](#shale.object.equals) ⇒
+    * [.patch(target)](#shale.object.patch) ⇒
+    * [.filter(obj, filter)](#shale.object.filter) ⇒
+    * [.map(obj, ma)](#shale.object.map) ⇒
+
+<a name="shale.object.hashcode"></a>
+
+#### object.hashcode(val) ⇒
+A function that returns a hashcode for an object.
+You should never need to call this directly, just call shale.hashcode
+
+**Kind**: static method of <code>[object](#shale.object)</code>  
+**Returns**: an hashcode for val  
+
+| Param | Description |
+| --- | --- |
+| val | the object to hash |
+
+<a name="shale.object.compact"></a>
+
+#### object.compact(val) ⇒
+A function that compacts an object into an immutable representation.
+You should never need to call this directly, just call shale.compact
+
+**Kind**: static method of <code>[object](#shale.object)</code>  
+**Returns**: an immutable representation of val  
+
+| Param | Description |
+| --- | --- |
+| val | the object to compact |
+
+<a name="shale.object.equals"></a>
+
+#### object.equals(val1, val2) ⇒
+A function that compares two objects for deep equality.
+You should never call this directly, use shale.equals
+
+**Kind**: static method of <code>[object](#shale.object)</code>  
+**Returns**: true if val1 is equal to val2, false otherwise  
+
+| Param | Description |
+| --- | --- |
+| val1 | an object to compare |
+| val2 | an object to compare |
+
+<a name="shale.object.patch"></a>
+
+#### object.patch(target) ⇒
+A function that "patches" one object with others.
+This works like Object.assign, but without modifying the target object
+
+**Kind**: static method of <code>[object](#shale.object)</code>  
+**Returns**: an immutable representation of the patched target  
+
+| Param | Description |
+| --- | --- |
+| target | the target object to "patch" |
+| ...sources | any number of source objects to patch target with |
+
+<a name="shale.object.filter"></a>
+
+#### object.filter(obj, filter) ⇒
+A function that returns a "filtered" copy of an object.
+This works like array.filter, but on each key-value pair of the object
+
+**Kind**: static method of <code>[object](#shale.object)</code>  
+**Returns**: a filtered representation of obj  
+
+| Param | Description |
+| --- | --- |
+| obj | the target object to "filter" |
+| filter | a filtering function  (value, key, obj) => boolean |
+
+<a name="shale.object.map"></a>
+
+#### object.map(obj, ma) ⇒
+A function that returns a "mapped" copy of an object.
+This works like array.map, but on each key-value pair of the object
+
+**Kind**: static method of <code>[object](#shale.object)</code>  
+**Returns**: a mapped representation of obj  
+
+| Param | Description |
+| --- | --- |
+| obj | the target object to "map" |
+| ma | a mapping function (value, key, obj) => newValue |
+
+<a name="shale.string"></a>
+
+### shale.string : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
+
+* [.string](#shale.string) : <code>object</code>
+    * [.hashcode(val)](#shale.string.hashcode) ⇒
+    * [.compact(val)](#shale.string.compact) ⇒
+    * [.equals(val1, val2)](#shale.string.equals) ⇒
+
+<a name="shale.string.hashcode"></a>
+
+#### string.hashcode(val) ⇒
+A function that returns a hashcode for a string.
+You should never need to call this directly, just call shale.hashcode
+
+**Kind**: static method of <code>[string](#shale.string)</code>  
+**Returns**: an hashcode for val  
+
+| Param | Description |
+| --- | --- |
+| val | the string to hash |
+
+<a name="shale.string.compact"></a>
+
+#### string.compact(val) ⇒
+A function that compacts a string into an immutable representation.
+You should never need to call this directly, just call shale.compact
+
+**Kind**: static method of <code>[string](#shale.string)</code>  
+**Returns**: an immutable representation of val  
+
+| Param | Description |
+| --- | --- |
+| val | the string to compact |
+
+<a name="shale.string.equals"></a>
+
+#### string.equals(val1, val2) ⇒
+A function that compares two strings for equality.
+You should never call this directly, use shale.equals
+
+**Kind**: static method of <code>[string](#shale.string)</code>  
+**Returns**: true if val1 is equal to val2, false otherwise  
+
+| Param | Description |
+| --- | --- |
+| val1 | a string to compare |
+| val2 | a string to compare |
+
+<a name="shale.undefined"></a>
+
+### shale.undefined : <code>object</code>
+**Kind**: static namespace of <code>[shale](#shale)</code>  
+
+* [.undefined](#shale.undefined) : <code>object</code>
+    * [.hashcode(val)](#shale.undefined.hashcode) ⇒
+    * [.compact(val)](#shale.undefined.compact) ⇒
+    * [.equals(val1, val2)](#shale.undefined.equals) ⇒
+
+<a name="shale.undefined.hashcode"></a>
+
+#### undefined.hashcode(val) ⇒
+A function that returns a hashcode for an undefined.
+You should never need to call this directly, just call shale.hashcode
+
+**Kind**: static method of <code>[undefined](#shale.undefined)</code>  
+**Returns**: an hashcode for val  
+
+| Param | Description |
+| --- | --- |
+| val | the undefined to hash |
+
+<a name="shale.undefined.compact"></a>
+
+#### undefined.compact(val) ⇒
+A function that compacts an undefined into an immutable representation.
+You should never need to call this directly, just call shale.compact
+
+**Kind**: static method of <code>[undefined](#shale.undefined)</code>  
+**Returns**: an immutable representation of val  
+
+| Param | Description |
+| --- | --- |
+| val | the undefined to compact |
+
+<a name="shale.undefined.equals"></a>
+
+#### undefined.equals(val1, val2) ⇒
+A function that compares two undefineds for equality.
+You should never call this directly, use shale.equals
+
+**Kind**: static method of <code>[undefined](#shale.undefined)</code>  
+**Returns**: true if val1 is equal to val2, false otherwise  
+
+| Param | Description |
+| --- | --- |
+| val1 | an undefined to compare |
+| val2 | an undefined null to compare |
+
+<a name="shale.type"></a>
+
+### shale.type ⇒
+A function that returns the type of a value
+
+**Kind**: static constant of <code>[shale](#shale)</code>  
+**Returns**: a type string  
 
 | Param | Description |
 | --- | --- |
 | val | the value to check |
 
-<a name="Vet.Array.isArrayOf"></a>
+<a name="shale.hashcode"></a>
 
-#### Array.isArrayOf(val) ⇒
-Builds an array validator that checks the children of the array
+### shale.hashcode(val) ⇒
+A function that returns the shale hashcode of a value
 
-**Kind**: static method of <code>[Array](#Vet.Array)</code>  
-**Returns**: a function that returns true if the value is an array, and all of the children pass the validator  
-
-| Param | Description |
-| --- | --- |
-| val | the validator function run against the array children |
-
-<a name="Vet.Array.isLength"></a>
-
-#### Array.isLength(len) ⇒
-Builds an array length checker
-
-**Kind**: static method of <code>[Array](#Vet.Array)</code>  
-**Returns**: a function that returns true if the value is an array of length len  
-
-| Param | Description |
-| --- | --- |
-| len | the length the array shouldbe |
-
-<a name="Vet.Boolean"></a>
-
-### Vet.Boolean : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
-
-* [.Boolean](#Vet.Boolean) : <code>object</code>
-    * [.isBoolean(val)](#Vet.Boolean.isBoolean) ⇒
-    * [.isFalse(val)](#Vet.Boolean.isFalse) ⇒
-    * [.isFalsy(val)](#Vet.Boolean.isFalsy) ⇒
-    * [.isTrue(val)](#Vet.Boolean.isTrue) ⇒
-    * [.isTruthy(val)](#Vet.Boolean.isTruthy) ⇒
-
-<a name="Vet.Boolean.isBoolean"></a>
-
-#### Boolean.isBoolean(val) ⇒
-Checks to see if a value is a boolean
-
-**Kind**: static method of <code>[Boolean](#Vet.Boolean)</code>  
-**Returns**: true if the value is a boolean  
+**Kind**: static method of <code>[shale](#shale)</code>  
+**Returns**: a 32-bit hashcode  
 
 | Param | Description |
 | --- | --- |
 | val | the value to check |
 
-<a name="Vet.Boolean.isFalse"></a>
+<a name="shale.compact"></a>
 
-#### Boolean.isFalse(val) ⇒
-Checks to see if a value is strictly false
+### shale.compact(val) ⇒
+A function that compacts a value into an immutable representation
 
-**Kind**: static method of <code>[Boolean](#Vet.Boolean)</code>  
-**Returns**: true if the value is strictly false  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Boolean.isFalsy"></a>
-
-#### Boolean.isFalsy(val) ⇒
-Checks to see if a value is loosely false (falsy)
-
-**Kind**: static method of <code>[Boolean](#Vet.Boolean)</code>  
-**Returns**: true if the value is loosely false  
+**Kind**: static method of <code>[shale](#shale)</code>  
+**Returns**: an immutable representation of val  
 
 | Param | Description |
 | --- | --- |
-| val | the value to check |
+| val | the value to compact |
 
-<a name="Vet.Boolean.isTrue"></a>
+<a name="shale.equals"></a>
 
-#### Boolean.isTrue(val) ⇒
-Checks to see if a value is strictly true
+### shale.equals(val1, val2) ⇒
+A function that checks if two values are equal
 
-**Kind**: static method of <code>[Boolean](#Vet.Boolean)</code>  
-**Returns**: true if the value is strictly true  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Boolean.isTruthy"></a>
-
-#### Boolean.isTruthy(val) ⇒
-Checks to see if a value is loosely true (truthy)
-
-**Kind**: static method of <code>[Boolean](#Vet.Boolean)</code>  
-**Returns**: true if the value loosely true  
+**Kind**: static method of <code>[shale](#shale)</code>  
+**Returns**: a boolean, true if val1 is equal to val2  
 
 | Param | Description |
 | --- | --- |
-| val | the value to check |
-
-<a name="Vet.Function"></a>
-
-### Vet.Function : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
-<a name="Vet.Function.isFunction"></a>
-
-#### Function.isFunction(val) ⇒
-Checks to see if a value is a function
-
-**Kind**: static method of <code>[Function](#Vet.Function)</code>  
-**Returns**: true if the value is a function  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Number"></a>
-
-### Vet.Number : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
-
-* [.Number](#Vet.Number) : <code>object</code>
-    * [.isInteger](#Vet.Number.isInteger) ⇒
-    * [.isNegative(val)](#Vet.Number.isNegative) ⇒
-    * [.isNonZero(val)](#Vet.Number.isNonZero) ⇒
-    * [.isNumber(val)](#Vet.Number.isNumber) ⇒
-    * [.isPositive(val)](#Vet.Number.isPositive) ⇒
-    * [.isZero(val)](#Vet.Number.isZero) ⇒
-
-<a name="Vet.Number.isInteger"></a>
-
-#### Number.isInteger ⇒
-Checks to see if a value is an integer
-
-**Kind**: static constant of <code>[Number](#Vet.Number)</code>  
-**Returns**: true if the value is an integer  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Number.isNegative"></a>
-
-#### Number.isNegative(val) ⇒
-Checks to see if a value is a negative number
-
-**Kind**: static method of <code>[Number](#Vet.Number)</code>  
-**Returns**: true if the value is a negative number  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Number.isNonZero"></a>
-
-#### Number.isNonZero(val) ⇒
-Checks to see if a value is a nonzero number
-
-**Kind**: static method of <code>[Number](#Vet.Number)</code>  
-**Returns**: true if the value is a nonzero number  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Number.isNumber"></a>
-
-#### Number.isNumber(val) ⇒
-Checks to see if a value is a number
-
-**Kind**: static method of <code>[Number](#Vet.Number)</code>  
-**Returns**: true if the value is a number  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Number.isPositive"></a>
-
-#### Number.isPositive(val) ⇒
-Checks to see if a value is a positive number
-
-**Kind**: static method of <code>[Number](#Vet.Number)</code>  
-**Returns**: true if the value is a positive number  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Number.isZero"></a>
-
-#### Number.isZero(val) ⇒
-Checks to see if a value is zero
-
-**Kind**: static method of <code>[Number](#Vet.Number)</code>  
-**Returns**: true if the value is zero  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Object"></a>
-
-### Vet.Object : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
-
-* [.Object](#Vet.Object) : <code>object</code>
-    * [.isObject(val)](#Vet.Object.isObject) ⇒
-    * [.matchesExact(schema)](#Vet.Object.matchesExact) ⇒
-    * [.matches(schema)](#Vet.Object.matches) ⇒
-
-<a name="Vet.Object.isObject"></a>
-
-#### Object.isObject(val) ⇒
-Checks to see if a value is an object
-
-**Kind**: static method of <code>[Object](#Vet.Object)</code>  
-**Returns**: true if the value is an object  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.Object.matchesExact"></a>
-
-#### Object.matchesExact(schema) ⇒
-Builds a function to check an object against a schema object
-
-This function works similarly to Vet.Object.matches,
-but it also checks to make sure every value in the object to check
-has a corresponding validator in the schema
-
-**Kind**: static method of <code>[Object](#Vet.Object)</code>  
-**Returns**: a validator function that takes in a value val, and returns true if val matches the object schema exactly  
-
-| Param | Description |
-| --- | --- |
-| schema | the object schema to check |
-
-<a name="Vet.Object.matches"></a>
-
-#### Object.matches(schema) ⇒
-Builds a function to check an object against a schema object
-
-A schema object consists of an object with child object, functions, and values
-
-The schema matching process is this:
-1) For each child in the schema object, match it against the corresponding child in the value to be checked
-2) If the schema child is a function, treat it as a validator function
-3) If the schema child is an object, recursively call the schema matching
-4) If the schema child is anything else, check for strict equality
-
-**Kind**: static method of <code>[Object](#Vet.Object)</code>  
-**Returns**: a validator function that takes in a value val, and returns true if val matches the object schema  
-
-| Param | Description |
-| --- | --- |
-| schema | the object schema to check |
-
-<a name="Vet.String"></a>
-
-### Vet.String : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
-
-* [.String](#Vet.String) : <code>object</code>
-    * [.isEmpty(val)](#Vet.String.isEmpty) ⇒
-    * [.isLength(len)](#Vet.String.isLength) ⇒
-    * [.isNotEmpty(val)](#Vet.String.isNotEmpty) ⇒
-    * [.isProbablyBase64(val)](#Vet.String.isProbablyBase64) ⇒
-    * [.isProbablyDataURL(val)](#Vet.String.isProbablyDataURL) ⇒
-    * [.isProbablyEmail(val)](#Vet.String.isProbablyEmail) ⇒
-    * [.isProbablyURL(val)](#Vet.String.isProbablyURL) ⇒
-    * [.isString(val)](#Vet.String.isString) ⇒
-    * [.matches(regex)](#Vet.String.matches) ⇒
-
-<a name="Vet.String.isEmpty"></a>
-
-#### String.isEmpty(val) ⇒
-Checks to see if a value is an empty string
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is an empty string  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.isLength"></a>
-
-#### String.isLength(len) ⇒
-Builds a function to check if a value is a string of length len
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: a function that takes in a value val, and returns true if val is a string of length len  
-
-| Param | Description |
-| --- | --- |
-| len | the desired length of string |
-
-<a name="Vet.String.isNotEmpty"></a>
-
-#### String.isNotEmpty(val) ⇒
-Checks to see if a value is a non-empty string
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is a non-empty string  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.isProbablyBase64"></a>
-
-#### String.isProbablyBase64(val) ⇒
-Checks to see if a value is probably a valid base64 string
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is probably a valid base64 string  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.isProbablyDataURL"></a>
-
-#### String.isProbablyDataURL(val) ⇒
-Checks to see if a value is probably a valid data URL
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is probably a valid data URL  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.isProbablyEmail"></a>
-
-#### String.isProbablyEmail(val) ⇒
-Checks to see if a value is probably a valid email
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is probably a valid email  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.isProbablyURL"></a>
-
-#### String.isProbablyURL(val) ⇒
-Checks to see if a value is probably a valid URL
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is probably a valid URL  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.isString"></a>
-
-#### String.isString(val) ⇒
-Checks to see if a value is a string
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: true if val is a string  
-
-| Param | Description |
-| --- | --- |
-| val | the value to check |
-
-<a name="Vet.String.matches"></a>
-
-#### String.matches(regex) ⇒
-Builds a function that checks to see if a value matches a regular expression
-
-**Kind**: static method of <code>[String](#Vet.String)</code>  
-**Returns**: a function that takes in a value val, and returns true if it is a string that matches regex  
-
-| Param | Description |
-| --- | --- |
-| regex | the regular expression to check against |
-
-<a name="Vet.Utils"></a>
-
-### Vet.Utils : <code>object</code>
-**Kind**: static namespace of <code>[Vet](#Vet)</code>  
-
-* [.Utils](#Vet.Utils) : <code>object</code>
-    * [.accepts(func, validator, message)](#Vet.Utils.accepts) ⇒
-    * [.assert(validator, message)](#Vet.Utils.assert) ⇒
-    * [.returns(func, validator, message)](#Vet.Utils.returns) ⇒
-
-<a name="Vet.Utils.accepts"></a>
-
-#### Utils.accepts(func, validator, message) ⇒
-Wraps a function in a validator which checks its arguments, and throws an error if the arguments are bad.
-
-**Kind**: static method of <code>[Utils](#Vet.Utils)</code>  
-**Returns**: a wrapped function that throws an error if the arguments do not pass validation  
-
-| Param | Description |
-| --- | --- |
-| func | the function to wrap |
-| validator | the validator function.  This gets passed the arguments as an array |
-| message | an optional message string to pass into the error thrown |
-
-<a name="Vet.Utils.assert"></a>
-
-#### Utils.assert(validator, message) ⇒
-Wraps a validator, and throws an error if it returns false.
-
-This is useful for some libraries (like React) that expect
-assertion-style validation.
-
-**Kind**: static method of <code>[Utils](#Vet.Utils)</code>  
-**Returns**: a function that returns null if the arguments pass validation, or throws an error if they do not  
-
-| Param | Description |
-| --- | --- |
-| validator | the validator to wrap |
-| message | an optional message string to pass into the error |
-
-<a name="Vet.Utils.returns"></a>
-
-#### Utils.returns(func, validator, message) ⇒
-Wraps a function in a validator which checks its return value, and throws an error if the return value is bad.
-
-**Kind**: static method of <code>[Utils](#Vet.Utils)</code>  
-**Returns**: a wrapped function that throws an error if the return value doed not pass validation  
-
-| Param | Description |
-| --- | --- |
-| func | the function to wrap |
-| validator | the validator function.  This gets passed the return value |
-| message | an optional message string to pass into the error thrown |
-
-<a name="Vet.equals"></a>
-
-### Vet.equals(eq) ⇒
-Builds an curried equal function
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in one parameter val, and returns true if val === eq  
-
-| Param | Description |
-| --- | --- |
-| eq | value to check equality against |
-
-<a name="Vet.exists"></a>
-
-### Vet.exists(val) ⇒
-Alias for isNotNullOrUndefined
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is not null or undefined  
-
-| Param | Description |
-| --- | --- |
-| val | value to check |
-
-<a name="Vet.isOneOf"></a>
-
-### Vet.isOneOf(...eq) ⇒
-Constructs a function that checks equality against any number of arguments
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in a parameter val, and returns true if val is NOT equal to any of the options in ...eq  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...eq | <code>\*</code> | values to check equality against |
-
-<a name="Vet.isNotNull"></a>
-
-### Vet.isNotNull(val) ⇒
-A function to check for nulls
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is strictly not equal to null  
-
-| Param | Description |
-| --- | --- |
-| val | a value to check against null |
-
-<a name="Vet.isNotNullOrUndefined"></a>
-
-### Vet.isNotNullOrUndefined(val) ⇒
-A function to check for null or undefined
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is loosely not null (strictly not null or undefined)  
-
-| Param | Description |
-| --- | --- |
-| val | a value to check against null and undefined |
-
-<a name="Vet.isNotUndefined"></a>
-
-### Vet.isNotUndefined(val) ⇒
-A function to check for undefined
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is strictly not undefined  
-
-| Param | Description |
-| --- | --- |
-| val | a value to check |
-
-<a name="Vet.isNull"></a>
-
-### Vet.isNull(val) ⇒
-A function to check for null
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is strictly null  
-
-| Param | Description |
-| --- | --- |
-| val | a value to check |
-
-<a name="Vet.isNullOrUndefined"></a>
-
-### Vet.isNullOrUndefined(val) ⇒
-A function to check for null or undefined
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is loosely null (strictly null or undefined)  
-
-| Param | Description |
-| --- | --- |
-| val | a value to check |
-
-<a name="Vet.isOneOf"></a>
-
-### Vet.isOneOf(...eq) ⇒
-Constructs a function that checks equality against any number of arguments
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in a parameter val, and returns true if val is equal to any of the options in ...eq  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...eq | <code>\*</code> | values to check equality against |
-
-<a name="Vet.isUndefined"></a>
-
-### Vet.isUndefined(val) ⇒
-A function to check for undefined
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: true if val is strictly undefined  
-
-| Param | Description |
-| --- | --- |
-| val | a value to check |
-
-<a name="Vet.matchesAllOf"></a>
-
-### Vet.matchesAllOf(...validators) ⇒
-A function builder to check a value against multiple validator functions
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in a value, and returns true if ALL of the validator functions return true  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...validators | <code>function</code> | any number of validator functions |
-
-<a name="Vet.matchesNoneOf"></a>
-
-### Vet.matchesNoneOf(...validators) ⇒
-A function builder to check a value against multiple validator functions
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in a value, and returns true if NONE of the validator functions return true  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...validators | <code>function</code> | any number of validator functions |
-
-<a name="Vet.matchesOneOf"></a>
-
-### Vet.matchesOneOf(...validators) ⇒
-A function builder to check a value against multiple validator functions
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in a value, and returns true if ANY of the validator functions return true  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| ...validators | <code>function</code> | any number of validator functions |
-
-<a name="Vet.optional"></a>
-
-### Vet.optional(validator) ⇒
-A function builder to optionally check a value
-
-**Kind**: static method of <code>[Vet](#Vet)</code>  
-**Returns**: a function that takes in a value, and returns true if the value does not exist, or the validator returns true  
-
-| Param | Description |
-| --- | --- |
-| validator | a validator function |
+| val1 | a value to compare |
+| val2 | a value to compare |
 
